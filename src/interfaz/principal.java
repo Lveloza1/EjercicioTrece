@@ -5,6 +5,8 @@
  */
 package interfaz;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USUARIO
@@ -27,21 +29,143 @@ public class principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtDias = new javax.swing.JTextField();
+        txtIntegrantes = new javax.swing.JTextField();
+        cmdCalcular = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JTextField();
+        cmdBorrar = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setText("13. Agencia de viajes");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 230, 40));
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel2.setText("Número de integrantes");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel3.setText("Numeros de dias en el Tour");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+
+        txtDias.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDiasKeyTyped(evt);
+            }
+        });
+        getContentPane().add(txtDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 70, 30));
+
+        txtIntegrantes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIntegrantesKeyTyped(evt);
+            }
+        });
+        getContentPane().add(txtIntegrantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 70, 30));
+
+        cmdCalcular.setText("Calcular");
+        cmdCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCalcularActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 223, 90, 30));
+
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel4.setText("Cobro total con 12% Iva Inc.");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
+
+        txtTotal.setEditable(false);
+        getContentPane().add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, 100, 30));
+
+        cmdBorrar.setText("Borrar");
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 70, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
+int integrantes, dias;
+double total, iva, total1;
+String todo;
+
+ if(txtIntegrantes.getText().trim().isEmpty()){
+        JOptionPane.showMessageDialog(this, "Digite el número de integrantes","error", JOptionPane.ERROR_MESSAGE);  
+        txtIntegrantes.requestFocusInWindow();
+        txtIntegrantes.selectAll();
+
+     }  
+     else if(txtDias.getText().trim().isEmpty()){
+        JOptionPane.showMessageDialog(this, "Digite la cantidad de días","error", JOptionPane.ERROR_MESSAGE);  
+        txtDias.requestFocusInWindow(); 
+         txtDias.selectAll();    
+
+     }
+
+     else{
+integrantes=Integer.parseInt(txtIntegrantes.getText());
+dias=Integer.parseInt(txtDias.getText());
+         if(integrantes==0) {
+       JOptionPane.showMessageDialog(this, "No existen personas ","Note", JOptionPane.INFORMATION_MESSAGE);  
+        txtIntegrantes.requestFocusInWindow(); 
+        txtIntegrantes.selectAll();  
+       }  
+
+     else if(dias==0){
+     JOptionPane.showMessageDialog(this, "Digite los dias de estadía en el Tour","Error", JOptionPane.ERROR_MESSAGE);  
+        txtDias.requestFocusInWindow(); 
+        txtDias.selectAll();              
+       }    
+total1=((dias*25000)*integrantes);
+iva=(total1*0.12);
+total=(total1+iva);
+
+    todo=String.valueOf(total);
+    txtTotal.setText (todo);
+
+
+     }
+        
+     
+    }//GEN-LAST:event_cmdCalcularActionPerformed
+
+    private void txtIntegrantesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIntegrantesKeyTyped
+char c=evt.getKeyChar(); 
+       
+          if(!Character.isDigit(c)) { 
+              getToolkit().beep();    
+              evt.consume(); 
+          }  
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIntegrantesKeyTyped
+
+    private void txtDiasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDiasKeyTyped
+char c=evt.getKeyChar(); 
+       
+          if(!Character.isDigit(c)) { 
+              getToolkit().beep();    
+              evt.consume(); 
+          }  
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDiasKeyTyped
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+
+     txtIntegrantes.setText("");
+     txtDias.setText("");
+     txtTotal.setText("");
+     txtIntegrantes.requestFocusInWindow();  
+    }//GEN-LAST:event_cmdBorrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +203,14 @@ public class principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdBorrar;
+    private javax.swing.JButton cmdCalcular;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField txtDias;
+    private javax.swing.JTextField txtIntegrantes;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }
